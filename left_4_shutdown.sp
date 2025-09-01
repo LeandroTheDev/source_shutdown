@@ -16,7 +16,7 @@ public void OnPluginStart()
 {
     HookEvent("player_connect", OnPlayerConnect, EventHookMode_Post);
 
-    CreateTimer(60.0, OnTimerEnded, 0, TIMER_REPEAT);
+    CreateTimer(5.0, OnTimerEnded, 0, TIMER_REPEAT);
 
     PrintToServer("[Left 4 Shutdown] Initialized");
 }
@@ -37,9 +37,13 @@ public void OnPlayerConnect(Event event, const char[] name, bool dontBroadcast)
 
 public Action OnTimerEnded(Handle timer)
 {
-    if (!shouldShutdownOnEmpty) return Plugin_Handled;
+    int onlinePlayers = GetOnlinePlayersCount();
+    PrintToServer("[Left 4 Shutdown] shouldShutdownOnEmpty: %d, tick: %d, onlinePlayers: %d", shouldShutdownOnEmpty, tick, onlinePlayers);
 
-    if (GetOnlinePlayersCount() <= 0)
+    if (!shouldShutdownOnEmpty)
+        return Plugin_Handled;
+
+    if (onlinePlayers <= 0)
     {
         if (tick > 2)
         {
@@ -64,7 +68,7 @@ public OnMapEnd()
     shouldShutdownOnEmpty = false;
     tick                  = 0;
 
-    CreateTimer(60.0, ShutdownOnEmptyTrue, 0, TIMER_FLAG_NO_MAPCHANGE);
+    CreateTimer(60.0, ShutdownOnEmptyTrue, 0, TIMER_REPEAT);
 }
 
 public Action ShutdownOnEmptyTrue(Handle timer)
