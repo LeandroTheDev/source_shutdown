@@ -58,6 +58,23 @@ public Action OnTimerEnded(Handle timer)
     return Plugin_Handled;
 }
 
+public OnMapEnd()
+{
+    PrintToServer("[Left 4 Shutdown] Map ended shouldShutdownOnEmpty is now false, will be true in 60 seconds!");
+    shouldShutdownOnEmpty = false;
+    tick                  = 0;
+
+    CreateTimer(60.0, ShutdownOnEmptyTrue, 0, TIMER_FLAG_NO_MAPCHANGE);
+}
+
+public Action ShutdownOnEmptyTrue(Handle timer)
+{
+    PrintToServer("[Left 4 Shutdown] shouldShutdownOnEmpty is now true by the ShutdownOnEmptyTrue!");
+    shouldShutdownOnEmpty = true;
+
+    return Plugin_Stop;
+}
+
 /// REGION Utils
 
 stock int GetOnlinePlayersCount()
