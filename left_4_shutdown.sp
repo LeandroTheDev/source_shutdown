@@ -16,7 +16,7 @@ public void OnPluginStart()
 {
     HookEvent("player_connect", OnPlayerConnect, EventHookMode_Post);
 
-    CreateTimer(5.0, OnTimerEnded, 0, TIMER_REPEAT);
+    CreateTimer(60.0, OnTimerEnded, 0, TIMER_REPEAT);
 
     PrintToServer("[Left 4 Shutdown] Initialized");
 }
