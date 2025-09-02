@@ -12,8 +12,20 @@ public Plugin myinfo =
 static bool shouldShutdownOnEmpty = false;
 static int  tick                  = 0;
 
+bool        shouldDebug           = false;
+
 public void OnPluginStart()
 {
+    char commandLine[512];
+    if (GetCommandLine(commandLine, sizeof(commandLine)))
+    {
+        if (StrContains(commandLine, "-debug") != -1)
+        {
+            PrintToServer("[Left 4 Shutdown] Debug is enabled");
+            shouldDebug = true;
+        }
+    }
+
     HookEvent("player_connect", OnPlayerConnect, EventHookMode_Post);
 
     CreateTimer(60.0, OnTimerEnded, 0, TIMER_REPEAT);
@@ -38,7 +50,8 @@ public void OnPlayerConnect(Event event, const char[] name, bool dontBroadcast)
 public Action OnTimerEnded(Handle timer)
 {
     int onlinePlayers = GetOnlinePlayersCount();
-    PrintToServer("[Left 4 Shutdown] shouldShutdownOnEmpty: %d, tick: %d, onlinePlayers: %d", shouldShutdownOnEmpty, tick, onlinePlayers);
+    if (shouldDebug)
+        PrintToServer("[Left 4 Shutdown] shouldShutdownOnEmpty: %d, tick: %d, onlinePlayers: %d", shouldShutdownOnEmpty, tick, onlinePlayers);
 
     if (!shouldShutdownOnEmpty)
         return Plugin_Handled;
