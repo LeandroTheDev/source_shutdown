@@ -1,4 +1,4 @@
-# Left 4 Shutdown
+# Source Shutdown
 Shutdown server on empty
 
 ## Requirements
@@ -6,7 +6,7 @@ Shutdown server on empty
 
 ## Usage
 1. Download the plugin from the latest release:
-[Releases Section](https://github.com/LeandroTheDev/left_4_shutdown/releases)
+[Releases Section](https://github.com/LeandroTheDev/source_shutdown/releases)
 
 2. Place the compiled .smx file into the following folder on your server: addons/sourcemod/plugins/
 
@@ -15,4 +15,4 @@ Shutdown server on empty
 4. Run the server
 
 ## Compiling
-- Use the compiler from sourcemod to compile the left_4_shutdown.sp
+- Use the compiler from sourcemod to compile the source_shutdown.sp
